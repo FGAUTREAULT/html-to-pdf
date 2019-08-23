@@ -1,0 +1,6 @@
+<mat-card>
+  <mat-card-content>
+    <mat-progress-bar class="chart-query" mode="query" *ngIf="!(chartData.asObservable() | async)"></mat-progress-bar>
+    <canvas #chart></canvas>
+  </mat-card-content>
+</mat-card>
