@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $app-bar-height;
+  z-index: 10000;
+  background-color: white;
+  margin: 0 $gutter-large $gutter-large $gutter-large;
+  mat-card {
+    box-sizing: border-box;
+    margin: $gutter-large;
+    width: calc(100% - #{$gutter-large*4});
+    form {
+      mat-form-field, button {
+        margin: 0.4rem;
+      }
+    }
+  }
+}

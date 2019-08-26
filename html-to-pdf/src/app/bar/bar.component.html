@@ -1,3 +1,20 @@
-<p>
-  bar works!
-</p>
+<mat-card>
+  <mat-card-title>POC html to export pdf files.</mat-card-title>
+  <mat-card-actions>
+    <form [formGroup]="form">
+      <mat-form-field>
+        <input formControlName="chartNumber" matInput type="number" min="0" max="20" placeholder="Chart number">
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="timeRange" matInput type="number" min="1" max="250" placeholder="Time range (days)">
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="datasetNumber" matInput type="number" min="1" max="10" placeholder="Dataset number">
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="delayMax" matInput type="number" min="0" max="5000" placeholder="Delay max">
+      </mat-form-field>
+      <button type="button" [disabled]="form.invalid" mat-stroked-button (click)="onClickTest()">Test it!</button>
+    </form>
+  </mat-card-actions>
+</mat-card>

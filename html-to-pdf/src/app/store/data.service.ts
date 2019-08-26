@@ -3,6 +3,7 @@ import { ChartConfiguration } from 'chart.js';
 import * as format from 'date-format';
 import { of, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { Context } from './model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,17 +51,17 @@ export class DataService {
     return Array(size).fill(1).map(data => data * Math.random() * 10000);
   }
 
-  getData(timerange: number, datasetsCount: number): Observable<ChartConfiguration> {
+  getData(context: Context): Observable<ChartConfiguration> {
     const config: ChartConfiguration = {
       type: 'bar',
       data: {
-        labels: this.generateLabels(timerange),
-        datasets: this.generateDatasets(datasetsCount, timerange),
+        labels: this.generateLabels(context.timeRange),
+        datasets: this.generateDatasets(context.datasetNumber, context.timeRange),
       },
       options: {
         scales: {
           xAxes: [{
-            type: "time",
+            type: 'time',
             time: {
               unit: 'day',
               round: 'day',
@@ -78,7 +79,7 @@ export class DataService {
       }
     };
     return of(config).pipe(
-      delay(Math.random() * 5000)
+      delay(Math.random() * context.delayMax),
     );
   }
 

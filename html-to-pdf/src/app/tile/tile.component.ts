@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input, OnChanges } from '@angular/core';
 import { Chart } from 'chart.js';
 import { DataService } from '../store/data.service';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { Context } from '../store/model';
 
 @Component({
   selector: 'app-tile',
@@ -10,10 +11,10 @@ import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 })
 export class TileComponent implements AfterViewInit, OnDestroy {
 
+  @Input() context: Context;
+
   @ViewChild('chart') chartEl: ElementRef;
   chartData: BehaviorSubject<Chart>;
-  timerange = 50;
-  datasetsCount = 5;
   subscription: Subscription;
 
   constructor(
@@ -24,7 +25,7 @@ export class TileComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     const chartCtx = this.chartEl.nativeElement.getContext('2d');
-    this.subscription = this.dataService.getData(this.timerange, this.datasetsCount)
+    this.subscription = this.dataService.getData(this.context)
       .subscribe(config => this.chartData.next(new Chart(chartCtx, config)));
   }
 

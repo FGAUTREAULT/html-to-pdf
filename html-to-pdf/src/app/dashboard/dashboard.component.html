@@ -1,20 +1,9 @@
 <mat-grid-list cols="2" rowHeight="2:1" gutterSize="1rem">
-  <mat-grid-tile>
-    <app-tile></app-tile>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-tile></app-tile>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-tile></app-tile>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-tile></app-tile>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-tile></app-tile>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <app-tile></app-tile>
-  </mat-grid-tile>
+  <ng-container *ngIf="(context$ | async) as context;">
+    <ng-container *ngFor="let chartNumber of getSimpleArray(context)">
+      <mat-grid-tile>
+        <app-tile [context]="context"></app-tile>
+      </mat-grid-tile>
+    </ng-container>
+  </ng-container>
 </mat-grid-list>
