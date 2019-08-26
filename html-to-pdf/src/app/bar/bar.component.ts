@@ -22,23 +22,26 @@ export class BarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const defaultValues = this.contextService.getValues();
-    this.chartNumberControl = new FormControl(defaultValues.chartNumber, [Validators.required, Validators.min(1), Validators.max(20)]);
-    this.timeRangeControl = new FormControl(defaultValues.timeRange, [Validators.required, Validators.min(1), Validators.max(250)]);
-    this.datasetNumberControl = new FormControl(defaultValues.datasetNumber, [Validators.required, Validators.min(1), Validators.max(10)]);
-    this.delayMaxControl = new FormControl(defaultValues.delayMax, [Validators.required, Validators.min(0), Validators.max(5000)]);
+    this.onClickReset();
+  }
+
+  onClickTest() {
+    const context: Context = this.form.value;
+    this.contextService.setValues(context);
+  }
+
+  onClickReset(context: Context = this.contextService.getDefaultValues()) {
+    this.chartNumberControl = new FormControl(context.chartNumber, [Validators.required, Validators.min(1), Validators.max(20)]);
+    this.timeRangeControl = new FormControl(context.timeRange, [Validators.required, Validators.min(1), Validators.max(250)]);
+    this.datasetNumberControl = new FormControl(context.datasetNumber, [Validators.required, Validators.min(1), Validators.max(10)]);
+    this.delayMaxControl = new FormControl(context.delayMax, [Validators.required, Validators.min(0), Validators.max(10000)]);
     this.form = this._fb.group({
       chartNumber: this.chartNumberControl,
       timeRange: this.timeRangeControl,
       datasetNumber: this.datasetNumberControl,
       delayMax: this.delayMaxControl,
     });
-  }
-
-  onClickTest() {
-    const context: Context = this.form.value;
     this.contextService.setValues(context);
-    console.error(context);
   }
 
 }

@@ -1,0 +1,15 @@
+@import './variables.scss';
+
+.fullscreen {
+  height: 100% !important;
+  position: fixed !important;
+  top: 0 !important;
+  z-index: 100000 !important;
+  left: $gutter-large !important;
+  width: calc(100%  - #{$gutter-large * 2}) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  bottom: 0 !important;
+  right: $gutter-large !important;
+  transition: all 500ms ease-in-out !important;
+}

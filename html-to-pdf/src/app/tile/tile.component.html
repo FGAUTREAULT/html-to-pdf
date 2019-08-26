@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card [class.mat-elevation-z0]="print">
   <mat-card-content>
     <mat-progress-bar class="chart-query" mode="query" *ngIf="!(chartData.asObservable() | async)"></mat-progress-bar>
     <canvas #chart></canvas>

@@ -1,8 +1,8 @@
 <mat-grid-list cols="2" rowHeight="2:1" gutterSize="1rem">
   <ng-container *ngIf="(context$ | async) as context;">
-    <ng-container *ngFor="let chartNumber of getSimpleArray(context)">
+    <ng-container *ngFor="let chartNumber of getSimpleArray(context); let index = index;">
       <mat-grid-tile>
-        <app-tile [context]="context"></app-tile>
+        <app-tile [id]="index" [context]="context"></app-tile>
       </mat-grid-tile>
     </ng-container>
   </ng-container>

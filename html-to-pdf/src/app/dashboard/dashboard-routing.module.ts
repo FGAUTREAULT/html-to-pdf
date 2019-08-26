@@ -9,6 +9,10 @@ import { DashboardComponent } from './dashboard.component';
         path: '',
         component: DashboardComponent,
       },
+      {
+        path: ':id',
+        component: DashboardComponent,
+      }
       // {
       //   path: 'print',
       //   component: PrintComponent,

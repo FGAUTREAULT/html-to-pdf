@@ -20,6 +20,10 @@ export class ContextService {
     this._context$ = new BehaviorSubject(ContextService.DEFAULT_CONTEXT);
   }
 
+  getDefaultValues(): Context {
+    return Object.assign({}, ContextService.DEFAULT_CONTEXT);
+  }
+
   getValues(): Context {
     return this._context$.getValue();
   }

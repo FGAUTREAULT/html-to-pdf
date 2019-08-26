@@ -3,18 +3,25 @@
   <mat-card-actions>
     <form [formGroup]="form">
       <mat-form-field>
-        <input formControlName="chartNumber" matInput type="number" min="0" max="20" placeholder="Chart number">
+        <input required formControlName="chartNumber" matInput type="number" min="0" max="20"
+          placeholder="Chart number">
       </mat-form-field>
       <mat-form-field>
-        <input formControlName="timeRange" matInput type="number" min="1" max="250" placeholder="Time range (days)">
+        <input required formControlName="timeRange" matInput type="number" min="1" max="250"
+          placeholder="Time range (days)">
       </mat-form-field>
       <mat-form-field>
-        <input formControlName="datasetNumber" matInput type="number" min="1" max="10" placeholder="Dataset number">
+        <input required formControlName="datasetNumber" matInput type="number" min="1" max="10"
+          placeholder="Dataset number">
       </mat-form-field>
       <mat-form-field>
-        <input formControlName="delayMax" matInput type="number" min="0" max="5000" placeholder="Delay max">
+        <input required formControlName="delayMax" matInput type="number" min="0" max="10000" placeholder="Delay max">
       </mat-form-field>
-      <button type="button" [disabled]="form.invalid" mat-stroked-button (click)="onClickTest()">Test it!</button>
+      <span class="button-container">
+        <button type="submit" color="primary" [disabled]="form.invalid" mat-stroked-button (click)="onClickTest()">Test
+          it!</button>
+        <button type="button" mat-button (click)="onClickReset()">Reset</button>
+      </span>
     </form>
   </mat-card-actions>
 </mat-card>

@@ -14,8 +14,16 @@
     margin: $gutter-large;
     width: calc(100% - #{$gutter-large*4});
     form {
+      display: flex;
       mat-form-field, button {
         margin: 0.4rem;
+        height: 2.5rem;
+      }
+      .button-container{
+        display: inline-flex;
+        justify-content: flex-end;
+        flex-direction: row;
+        width: 100%;
       }
     }
   }
