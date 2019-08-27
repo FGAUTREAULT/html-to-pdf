@@ -1,7 +1,7 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input, OnChanges, HostBinding, HostListener, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input, HostBinding, HostListener, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { DataService } from '../store/data.service';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { Context } from '../store/model';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -48,7 +48,7 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
   @HostListener('click')
   onclick() {
     this.fullscreen = !this.fullscreen;
-    this.print = !this.print;
+    this.print = false;
   }
 
   private applyParams(params: Params) {

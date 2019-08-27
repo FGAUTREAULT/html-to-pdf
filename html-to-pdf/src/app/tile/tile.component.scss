@@ -10,6 +10,13 @@
     width: calc(100% - #{$gutter*2});
     height: calc(100% - #{$gutter*2});
 
+    mat-card-content {
+      margin: $gutter!important;
+      margin-right: $gutter*3!important;
+      width: calc(100%  - #{$gutter * 4})!important;
+      height: calc(100%  - #{$gutter * 2})!important;
+    }
+
     .chart-query {
       position: absolute;
       margin: auto;

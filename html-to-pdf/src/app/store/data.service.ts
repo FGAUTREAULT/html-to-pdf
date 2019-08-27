@@ -59,6 +59,8 @@ export class DataService {
         datasets: this.generateDatasets(context.datasetNumber, context.timeRange),
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           xAxes: [{
             type: 'time',

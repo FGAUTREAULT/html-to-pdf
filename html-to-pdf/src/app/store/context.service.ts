@@ -8,7 +8,7 @@ import { Context } from './model';
 export class ContextService {
 
   public static readonly DEFAULT_CONTEXT: Context = {
-    chartNumber: 1,
+    chartNumber: 4,
     timeRange: 30,
     datasetNumber: 2,
     delayMax: 2000,
