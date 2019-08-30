@@ -4,9 +4,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BarComponent } from './bar/bar.component';
 import { CommonModule } from '@angular/common';
-import { MatCardModule, MatButtonModule, MatInputModule, MatProgressBarModule } from '@angular/material';
+import { MatCardModule, MatButtonModule, MatInputModule, MatProgressBarModule, MatIconModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+const materialModule = [
+  MatProgressBarModule,
+  MatButtonModule,
+  MatCardModule,
+  MatInputModule,
+  MatIconModule,
+];
 
 @NgModule({
   declarations: [
@@ -18,12 +26,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     AppRoutingModule,
     CommonModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatCardModule,
-    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    [...materialModule]
   ],
   providers: [],
   bootstrap: [AppComponent]

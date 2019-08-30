@@ -1,7 +1,15 @@
 <mat-card [class.mat-elevation-z0]="print">
-  <mat-card-header *ngIf="fullscreen && !print">
-    <button mat-stroked-button type="button">Print to PDF</button>
-  </mat-card-header>
+  <mat-card-actions class="header-action" *ngIf="fullscreen && !print">
+    <button mat-stroked-button type="button" (click)="onPrintPreview()">
+      <mat-icon>remove_red_eye</mat-icon>Print preview
+    </button>
+    <button mat-stroked-button type="button">
+      <mat-icon>print</mat-icon>Print to PDF
+    </button>
+    <button mat-stroked-button type="button">
+      <mat-icon>file_download</mat-icon>Export data
+    </button>
+  </mat-card-actions>
   <mat-card-content>
     <mat-progress-bar class="chart-query" mode="query" *ngIf="!(chartData.asObservable() | async)"></mat-progress-bar>
     <canvas #chart></canvas>

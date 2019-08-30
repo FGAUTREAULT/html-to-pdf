@@ -3,7 +3,8 @@ import { Chart } from 'chart.js';
 import { DataService } from '../store/data.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Context } from '../store/model';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router';
+import { RoutingConstants, RoutingParamsConstants } from '../constants/app.constants';
 
 @Component({
   selector: 'app-tile',
@@ -24,6 +25,7 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(
     private readonly dataService: DataService,
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
   ) {
     this.subscriptions = [];
     this.chartData = new BehaviorSubject(undefined);
@@ -46,17 +48,25 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
     this.chartEl.nativeElement.addEventListener('click', this.onClick.bind(this));
   }
 
-  onClick() {
-    this.fullscreen = !this.fullscreen;
-    this.print = false;
+  onPrintPreview() {
+    const extras: NavigationExtras = {
+      queryParams: { [RoutingParamsConstants.APP_ROUTING_PARAM_PRINT]: true }
+    };
+    this.router.navigate([`${RoutingConstants.APP_NAVIGATE_DASHBOARD}/${this.id}`], extras);
   }
 
   private applyParams(params: Params) {
-    const id = parseInt(params['id']);
+    const id = parseInt(params['id'], 2);
     if (id === this.id) {
-      this.print = Boolean(this.route.snapshot.queryParams['print']) || false;
-      this.fullscreen = this.print === true ? this.print : Boolean(this.route.snapshot.queryParams['fullscreen']) || false;
+      this.print = Boolean(this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_PRINT]) || false;
+      const fullscreen = Boolean(this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_FULLSCREEN]) || false;
+      this.fullscreen = this.print === true ? this.print : fullscreen;
     }
+  }
+
+  private onClick() {
+    this.fullscreen = !this.fullscreen;
+    this.print = false;
   }
 
 }

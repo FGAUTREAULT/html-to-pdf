@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { TileComponent } from './tile.component';
-import { MatCardModule, MatProgressBarModule, MatButtonModule } from '@angular/material';
+import { MatCardModule, MatProgressBarModule, MatButtonModule, MatIconModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
@@ -8,13 +8,14 @@ import { CommonModule } from '@angular/common';
     MatCardModule,
     MatProgressBarModule,
     MatButtonModule,
-    CommonModule
+    MatIconModule,
+    CommonModule,
   ],
   declarations: [
-    TileComponent
+    TileComponent,
   ],
   exports: [
-    TileComponent
+    TileComponent,
   ],
   providers: [],
 })
