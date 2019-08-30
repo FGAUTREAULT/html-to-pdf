@@ -1,18 +1,22 @@
 
 @import "./variables.scss";
+@import "./mixins.scss";
 
 @media print {
   @page {
     margin: 0;
     size: landscape;
   }
-  button {
-    display: none !important;
-  }
-  canvas {
-    width: calc(29.7cm - #{$gutter-print*6}) !important;
-    height: calc(21.0cm - #{$gutter-print*4}) !important;
-    padding: $gutter-print!important;
-    padding-right: $gutter-print*3!important;
+  app-tile.print {
+    width: 29.7cm !important;
+    height: 21.0cm !important;
+    button {
+      display: none !important;
+    }
+    canvas {
+      width: calc(100% - #{$gutter-print*4}) !important;
+      height: calc(100% - #{$gutter-print*2}) !important;
+      padding: $gutter-print $gutter-print*3 $gutter-print $gutter-print!important;
+    }
   }
 }

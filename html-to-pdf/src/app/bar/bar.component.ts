@@ -25,7 +25,11 @@ export class BarComponent implements OnInit {
     this.onClickReset();
   }
 
-  onClickTest() {
+  onClickDashboardPrint() {
+
+  }
+
+  onClickRun() {
     const context: Context = this.form.value;
     this.contextService.setValues(context);
   }

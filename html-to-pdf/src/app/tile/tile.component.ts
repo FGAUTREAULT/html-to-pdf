@@ -1,15 +1,17 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input, HostBinding, HostListener, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input, HostBinding, HostListener, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Chart } from 'chart.js';
 import { DataService } from '../store/data.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, of } from 'rxjs';
 import { Context } from '../store/model';
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router';
 import { RoutingConstants, RoutingParamsConstants } from '../constants/app.constants';
+import { delay, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tile',
   templateUrl: './tile.component.html',
-  styleUrls: ['./tile.component.scss']
+  styleUrls: ['./tile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
 
@@ -26,6 +28,7 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
     private readonly dataService: DataService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
+    private readonly ref: ChangeDetectorRef,
   ) {
     this.subscriptions = [];
     this.chartData = new BehaviorSubject(undefined);
@@ -55,18 +58,29 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
     this.router.navigate([`${RoutingConstants.APP_NAVIGATE_DASHBOARD}/${this.id}`], extras);
   }
 
+  onPrintPdf() {
+    this.print = true;
+    this.ref.markForCheck();
+    setTimeout(() => {
+      this.chartData.getValue().resize();
+      window.print();
+    });
+  }
+
   private applyParams(params: Params) {
     const id = parseInt(params['id'], 2);
     if (id === this.id) {
       this.print = Boolean(this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_PRINT]) || false;
       const fullscreen = Boolean(this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_FULLSCREEN]) || false;
       this.fullscreen = this.print === true ? this.print : fullscreen;
+      this.ref.markForCheck();
     }
   }
 
   private onClick() {
     this.fullscreen = !this.fullscreen;
     this.print = false;
+    this.ref.markForCheck();
   }
 
 }

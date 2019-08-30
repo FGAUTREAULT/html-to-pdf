@@ -18,8 +18,11 @@
         <input required formControlName="delayMax" matInput type="number" min="0" max="10000" placeholder="Delay max">
       </mat-form-field>
       <span class="button-container">
-        <button type="submit" color="primary" [disabled]="form.invalid" mat-stroked-button (click)="onClickTest()">
+        <button type="submit" color="primary" [disabled]="form.invalid" mat-stroked-button (click)="onClickRun()">
           <mat-icon>play_arrow</mat-icon>Run
+        </button>
+        <button type="button" mat-stroked-button (click)="onClickDashboardPrint()">
+          <mat-icon>print</mat-icon>Dashboard print
         </button>
         <button type="button" mat-button (click)="onClickReset()">Reset</button>
       </span>
