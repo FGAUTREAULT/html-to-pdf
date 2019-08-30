@@ -1,4 +1,7 @@
 <mat-card [class.mat-elevation-z0]="print">
+  <mat-card-header *ngIf="fullscreen && !print">
+    <button mat-stroked-button type="button">Print to PDF</button>
+  </mat-card-header>
   <mat-card-content>
     <mat-progress-bar class="chart-query" mode="query" *ngIf="!(chartData.asObservable() | async)"></mat-progress-bar>
     <canvas #chart></canvas>

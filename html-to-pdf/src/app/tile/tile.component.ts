@@ -19,7 +19,7 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('chart') chartEl: ElementRef;
   chartData: BehaviorSubject<Chart>;
   subscriptions: Subscription[];
-  print: boolean;
+  @HostBinding('class.print') print: boolean;
 
   constructor(
     private readonly dataService: DataService,
@@ -43,10 +43,10 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
     this.subscriptions.push(this.route.params.subscribe(params => this.applyParams(params)));
+    this.chartEl.nativeElement.addEventListener('click', this.onClick.bind(this));
   }
 
-  @HostListener('click')
-  onclick() {
+  onClick() {
     this.fullscreen = !this.fullscreen;
     this.print = false;
   }

@@ -4,17 +4,27 @@
   width: 100%;
   height: 100%;
   padding: $gutter;
+  &.fullscreen {
+    --var-header: 3rem;
+    &.print{
+      --var-header: 0rem;
+    }
+  }
   mat-card {
     box-sizing: border-box;
     margin: $gutter;
     width: calc(100% - #{$gutter*2});
     height: calc(100% - #{$gutter*2});
 
+    mat-card-header {
+      height: var(--var-header);
+    }
+
     mat-card-content {
       margin: $gutter!important;
       margin-right: $gutter*3!important;
       width: calc(100%  - #{$gutter * 4})!important;
-      height: calc(100%  - #{$gutter * 2})!important;
+      height: calc(100%  - #{$gutter * 2} - var(--var-header, 0rem))!important;
     }
 
     .chart-query {
