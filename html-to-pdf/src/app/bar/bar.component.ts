@@ -26,7 +26,7 @@ export class BarComponent implements OnInit {
   }
 
   onClickDashboardPrint() {
-
+    window.print();
   }
 
   onClickRun() {

@@ -7,7 +7,17 @@
     margin: 0;
     size: landscape;
   }
+  * {
+    box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12) !important;
+  }
+  app-bar {
+    display: none;
+  }
+  app-tile {
+    display: none;
+  }
   app-tile.print {
+    display: block;
     width: 29.7cm !important;
     height: 21.0cm !important;
     button {
@@ -18,5 +28,11 @@
       height: calc(100% - #{$gutter-print*2}) !important;
       padding: $gutter-print $gutter-print*3 $gutter-print $gutter-print!important;
     }
+  }
+}
+
+@media screen {
+  .header, .footer {
+    display: none;
   }
 }

@@ -54,6 +54,15 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
     this.chartEl.nativeElement.addEventListener('click', this.onClick.bind(this));
   }
 
+  private afterPrint() {
+    const closure = function after() {
+      this.print = false;
+      this.ref.markForCheck();
+      setTimeout(() => this.chartData.getValue().resize());
+    };
+    return closure.bind(this);
+  }
+
   onPrintPreview() {
     const extras: NavigationExtras = {
       queryParams: { [RoutingParamsConstants.APP_ROUTING_PARAM_PRINT]: true }
@@ -93,6 +102,7 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
       const fullscreen = Boolean(this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_FULLSCREEN]) || false;
       this.fullscreen = this.print === true ? this.print : fullscreen;
       this.ref.markForCheck();
+      window.onafterprint = this.afterPrint();
     }
   }
 
