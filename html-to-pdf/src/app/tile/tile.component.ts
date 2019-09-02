@@ -1,11 +1,13 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input, HostBinding, HostListener, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart, ChartData } from 'chart.js';
 import { DataService } from '../store/data.service';
 import { BehaviorSubject, Subscription, of } from 'rxjs';
 import { Context } from '../store/model';
 import { ActivatedRoute, Params, Router, NavigationExtras } from '@angular/router';
 import { RoutingConstants, RoutingParamsConstants } from '../constants/app.constants';
 import { delay, tap } from 'rxjs/operators';
+import { DownloadService } from '../shared/download.service';
+import { IChartCSVData } from '../shared/chart';
 
 @Component({
   selector: 'app-tile',
@@ -29,6 +31,7 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly ref: ChangeDetectorRef,
+    private readonly downloadService: DownloadService,
   ) {
     this.subscriptions = [];
     this.chartData = new BehaviorSubject(undefined);
@@ -64,6 +67,22 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
     setTimeout(() => {
       this.chartData.getValue().resize();
       window.print();
+    });
+  }
+
+  onExtractCSV() {
+    const datas = this.chartData.getValue().data;
+    const tableData: IChartCSVData[] = this.getCSVDataStandard(datas.labels, datas.datasets);
+    this.downloadService.downloadFile(tableData, 'test', 'csv', true);
+  }
+
+  private getCSVDataStandard(xLabels, xDatasets): IChartCSVData[] {
+    return xLabels.map((label, index) => {
+      const rowData: IChartCSVData = {};
+      xDatasets.forEach((set) => {
+        rowData[set.label] = set.data[index];
+      });
+      return rowData;
     });
   }
 
