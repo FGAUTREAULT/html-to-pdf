@@ -15,6 +15,8 @@
   }
   app-tile {
     display: none;
+    width: 0 !important;
+    height: 0 !important;
   }
   app-tile.print {
     display: block;
@@ -27,6 +29,24 @@
       width: calc(100% - #{$gutter-print*4}) !important;
       height: calc(100% - #{$gutter-print*2}) !important;
       padding: $gutter-print $gutter-print*3 $gutter-print $gutter-print!important;
+    }
+  }
+  app-dashboard-print, app-dashboard {
+    padding: $gutter!important;
+    // position: relative!important;
+    background-color: green !important;
+    mat-grid-tile {
+      padding: 0!important;
+      margin: 0!important;
+      // position: relative!important;
+      // page-break-after: always!important;
+      // page-break-before: avoid!important;
+      // page-break-inside: avoid;
+      // width: 29.7cm !important;
+      // height: 21.0cm !important;
+      // &:last-child {
+      //   page-break-after: avoid !important;
+      // }
     }
   }
 }

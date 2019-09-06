@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ContextService } from '../store/context.service';
 import { Context } from '../store/model';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { RoutingConstants, RoutingParamsConstants } from '../constants/app.constants';
 
 @Component({
   selector: 'app-bar',
@@ -19,6 +21,8 @@ export class BarComponent implements OnInit {
   constructor(
     private readonly _fb: FormBuilder,
     private readonly contextService: ContextService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -26,7 +30,17 @@ export class BarComponent implements OnInit {
   }
 
   onClickDashboardPrint() {
-    window.print();
+    const print = this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_PRINT];
+    const extras: NavigationExtras = {
+      queryParams: {
+        [RoutingParamsConstants.APP_ROUTING_PARAM_PRINT]: !print,
+      },
+    };
+    if (!print) {
+      this.router.navigate([`${RoutingConstants.APP_NAVIGATE_DASHBOARD}`], extras);
+    } else {
+      this.router.navigateByUrl(`${RoutingConstants.APP_NAVIGATE_DASHBOARD}`);
+    }
   }
 
   onClickRun() {

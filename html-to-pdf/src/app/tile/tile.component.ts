@@ -50,7 +50,7 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.route.params.subscribe(params => this.applyParams(params)));
+    this.subscriptions.push(this.route.queryParams.subscribe(() => this.applyParams()));
     this.chartEl.nativeElement.addEventListener('click', this.onClick.bind(this));
   }
 
@@ -95,15 +95,27 @@ export class TileComponent implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  private applyParams(params: Params) {
-    const id = parseInt(params['id'], 2);
+  private applyParams() {
+    const id = parseInt(this.route.snapshot.params['id'], 2);
+    const print = Boolean(this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_PRINT]) || false;
     if (id === this.id) {
-      this.print = Boolean(this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_PRINT]) || false;
-      const fullscreen = Boolean(this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_FULLSCREEN]) || false;
-      this.fullscreen = this.print === true ? this.print : fullscreen;
-      this.ref.markForCheck();
-      window.onafterprint = this.afterPrint();
+      this.applyPrintOne(print);
+    } else if (isNaN(id) && print) {
+      this.applyPrintAll(print);
     }
+  }
+
+  private applyPrintAll(print: boolean) {
+    this.print = print;
+    this.ref.markForCheck();
+  }
+
+  private applyPrintOne(print: boolean) {
+    this.print = print;
+    const fullscreen = Boolean(this.route.snapshot.queryParams[RoutingParamsConstants.APP_ROUTING_PARAM_FULLSCREEN]) || false;
+    this.fullscreen = this.print === true ? this.print : fullscreen;
+    this.ref.markForCheck();
+    window.onafterprint = this.afterPrint();
   }
 
   private onClick() {

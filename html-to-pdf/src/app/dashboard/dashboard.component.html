@@ -1,9 +1,9 @@
-<mat-grid-list cols="2" rowHeight="2:1" gutterSize="1rem">
-  <ng-container *ngIf="(context$ | async) as context;">
-    <ng-container *ngFor="let chartNumber of getSimpleArray(context); let index = index;">
-      <mat-grid-tile>
+<ng-container>
+  <mat-grid-list cols="{{!print?2:1}}" rowHeight="2:1" gutterSize="1rem">
+    <ng-container *ngIf="(context$ | async) as context;">
+      <mat-grid-tile *ngFor="let chartNumber of getSimpleArray(context); let index = index;">
         <app-tile [id]="index" [context]="context"></app-tile>
       </mat-grid-tile>
     </ng-container>
-  </ng-container>
-</mat-grid-list>
+  </mat-grid-list>
+</ng-container>

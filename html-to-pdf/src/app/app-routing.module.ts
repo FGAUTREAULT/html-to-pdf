@@ -10,11 +10,19 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: './dashboard/dashboard.module#DashboardModule',
-  }
+  },
+  {
+    path: '**',
+    redirectTo: 'dashboard'
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    onSameUrlNavigation: 'reload',
+    // To debug routing
+    enableTracing: false,
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

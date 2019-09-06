@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { MatGridListModule } from '@angular/material';
 import { TileModule } from '../tile/tile.module';
 import { CommonModule } from '@angular/common';
+import { DashboardPrintComponent } from './dashboard-print/dashboard-print.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    DashboardPrintComponent,
   ],
   providers: [],
 })
